@@ -1,4 +1,5 @@
 package com.example.studytrackerapp;
+
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
@@ -6,7 +7,9 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.MediaStore;
 import android.util.Patterns;
 import android.view.LayoutInflater;
@@ -29,49 +32,50 @@ import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.snackbar.Snackbar;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 public class ProfileFragment extends Fragment {
+
     private static final String PROFILE_PREFS = "user_profile";
     private EditText etFirstName, etLastName, etCourse, etAge, etStudentId, etYear;
     private ImageView ivProfile;
     private Uri profileImageUri;
+    private Uri cameraImageUri;
 
-    // 1. Declare ActivityResultLaunchers
-    private ActivityResultLauncher<Intent> imagePickerLauncher;
-    private ActivityResultLauncher<String> permissionLauncher;
-    private ActivityResultLauncher<Uri> cameraLauncher;
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        // 2. Initialize the launchers
-        imagePickerLauncher = registerForActivityResult(
-                new ActivityResultContracts.StartActivityForResult(),
-                result -> {
-                    if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
-                        handleSelectedImage(result.getData().getData());
+    // ActivityResultLaunchers
+    private final ActivityResultLauncher<Intent> imagePickerLauncher = registerForActivityResult(
+            new ActivityResultContracts.StartActivityForResult(),
+            result -> {
+                if (result.getResultCode() == Activity.RESULT_OK && result.getData() != null) {
+                    Uri selectedImage = result.getData().getData();
+                    if (selectedImage != null) {
+                        profileImageUri = selectedImage;
+                        ivProfile.setImageURI(selectedImage);
                     }
-                });
+                }
+            });
 
-        permissionLauncher = registerForActivityResult(
-                new ActivityResultContracts.RequestPermission(),
-                isGranted -> {
-                    if (isGranted) {
-                        openImagePicker();
-                    } else {
-                        showPermissionDenied();
-                    }
-                });
+    private final ActivityResultLauncher<String> requestPermissionLauncher = registerForActivityResult(
+            new ActivityResultContracts.RequestPermission(),
+            isGranted -> {
+                if (isGranted) {
+                    openImagePicker();
+                } else {
+                    Toast.makeText(getContext(), "Permission required to access images", Toast.LENGTH_SHORT).show();
+                }
+            });
 
-        cameraLauncher = registerForActivityResult(
-                new ActivityResultContracts.TakePicture(),
-                success -> {
-                    if (success && profileImageUri != null) {
-                        ivProfile.setImageURI(profileImageUri);
-                    }
-                });
-    }
+    private final ActivityResultLauncher<Uri> cameraLauncher = registerForActivityResult(
+            new ActivityResultContracts.TakePicture(),
+            success -> {
+                if (success && cameraImageUri != null) {
+                    profileImageUri = cameraImageUri;
+                    ivProfile.setImageURI(cameraImageUri);
+                }
+            });
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -91,14 +95,14 @@ public class ProfileFragment extends Fragment {
 
         loadProfileData();
 
-        // 3. Updated click listeners
-        btnEditPhoto.setOnClickListener(v -> showImageSelectionDialog());
+        // Set click listeners
+        btnEditPhoto.setOnClickListener(v -> showImageSourceDialog());
         btnSave.setOnClickListener(v -> saveProfile());
 
         return view;
     }
 
-    private void showImageSelectionDialog() {
+    private void showImageSourceDialog() {
         new MaterialAlertDialogBuilder(requireContext())
                 .setTitle("Change Profile Picture")
                 .setItems(new String[]{"Take Photo", "Choose from Gallery"},
@@ -106,50 +110,61 @@ public class ProfileFragment extends Fragment {
                             if (which == 0) {
                                 dispatchTakePictureIntent();
                             } else {
-                                checkPermissionsAndPickImage();
+                                checkAndRequestImagePermission();
                             }
                         })
                 .show();
     }
 
-    private void checkPermissionsAndPickImage() {
-        if (ContextCompat.checkSelfPermission(requireContext(),
-                Manifest.permission.READ_MEDIA_IMAGES) == PackageManager.PERMISSION_GRANTED) {
+    private void checkAndRequestImagePermission() {
+        String permission;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            permission = Manifest.permission.READ_MEDIA_IMAGES;
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            permission = Manifest.permission.READ_EXTERNAL_STORAGE;
+        } else {
+            openImagePicker();
+            return;
+        }
+
+        if (ContextCompat.checkSelfPermission(requireContext(), permission) == PackageManager.PERMISSION_GRANTED) {
             openImagePicker();
         } else {
-            permissionLauncher.launch(Manifest.permission.READ_MEDIA_IMAGES);
+            requestPermissionLauncher.launch(permission);
         }
     }
 
     private void openImagePicker() {
-        Intent intent = new Intent(Intent.ACTION_PICK,
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        Intent intent = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intent.setType("image/*");
         imagePickerLauncher.launch(intent);
     }
 
     private void dispatchTakePictureIntent() {
-        String filename = "profile_" + System.currentTimeMillis() + ".jpg";
-        File file = new File(requireContext().getFilesDir(), filename);
-        profileImageUri = FileProvider.getUriForFile(
-                requireContext(),
-                requireContext().getPackageName() + ".fileprovider",
-                file
-        );
-        cameraLauncher.launch(profileImageUri);
-    }
-
-    private void handleSelectedImage(Uri imageUri) {
-        if (imageUri != null) {
-            profileImageUri = imageUri;
-            ivProfile.setImageURI(imageUri);
+        try {
+            File photoFile = createImageFile();
+            if (photoFile != null) {
+                cameraImageUri = FileProvider.getUriForFile(
+                        requireContext(),
+                        requireContext().getPackageName() + ".fileprovider",
+                        photoFile
+                );
+                cameraLauncher.launch(cameraImageUri);
+            }
+        } catch (IOException e) {
+            Toast.makeText(getContext(), "Error creating image file", Toast.LENGTH_SHORT).show();
         }
     }
 
-    private void showPermissionDenied() {
-        Toast.makeText(getContext(),
-                "Permission required to access images",
-                Toast.LENGTH_SHORT).show();
+    private File createImageFile() throws IOException {
+        String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(new Date());
+        String imageFileName = "JPEG_" + timeStamp + "_";
+        File storageDir = requireContext().getExternalFilesDir(Environment.DIRECTORY_PICTURES);
+        return File.createTempFile(
+                imageFileName,
+                ".jpg",
+                storageDir
+        );
     }
 
     private void loadProfileData() {
