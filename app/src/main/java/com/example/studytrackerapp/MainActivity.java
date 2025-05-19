@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Replace with your actual user data
         userEmail.setText("group@gmail.com");
-        userName.setText("Group 10");
+        userName.setText("Group 11");
     }
 
     @Override
