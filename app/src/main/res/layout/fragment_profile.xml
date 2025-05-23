@@ -173,6 +173,6 @@
             android:text="Save Profile"
             app:icon="@drawable/ic_save"
             app:iconGravity="start"
-            app:iconTint="@android:color/white"/>
+            app:iconTint="@color/white"/>
     </LinearLayout>
 </ScrollView>

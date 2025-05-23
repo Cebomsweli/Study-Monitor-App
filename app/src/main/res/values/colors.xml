@@ -1,10 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#FF000000</color>
-    <color name="white">#FFFFFFFF</color>
-    <color name="colorPrimary">#6200EE</color>
-    <color name="colorPrimaryDark">#3700B3</color>
-    <color name="colorAccent">#03DAC5</color>
-    <color name="primaryText">#212121</color>
-    <color name="secondaryText">#757575</color>
+    <color name="black">#212121</color> <!-- Dark Gray for text or icons -->
+    <color name="white">#FFFFFF</color> <!-- White for backgrounds and text -->
+    <color name="colorPrimary">#4CAF50</color> <!-- Green for primary actions (indicating progress or success) -->
+    <color name="colorPrimaryDark">#388E3C</color> <!-- Dark Green for status bars -->
+    <color name="colorAccent">#FF9800</color> <!-- Orange for accents (button, highlights) -->
+    <color name="primaryText">#212121</color> <!-- Dark Gray for main text -->
+    <color name="secondaryText">#757575</color> <!-- Light Gray for secondary text -->
+    <color name="primary">#4CAF50</color> <!-- Green for the main theme color -->
+    <color name="primary_dark">#388E3C</color> <!-- Darker Green for navigation or status bar -->
+    <color name="background_light">#F5F5F5</color> <!-- Light Gray for general background -->
+
+    <!-- Base colors -->
+
+    <!-- Light theme variants -->
+    <color name="colorPrimaryLight">#80E27E</color> <!-- Lighter Green for emphasis or hover -->
+    <color name="colorAccentLight">#FFB74D</color> <!-- Lighter Orange for accents in light theme -->
+
+    <!-- Dark theme variants -->
+    <color name="colorPrimaryDarkest">#1B5E20</color> <!-- Very Dark Green for dark theme -->
+    <color name="colorAccentDark">#FF5722</color> <!-- Darker Orange for accent in dark theme -->
 </resources>

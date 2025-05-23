@@ -43,5 +43,7 @@ dependencies {
     androidTestImplementation(libs.espresso.core)
     implementation ("com.google.android.material:material:1.6.0")
     implementation ("androidx.appcompat:appcompat:1.4.2")
+    implementation("androidx.core:core-ktx:1.16.0")
+    implementation("com.google.android.material:material:1.12.0") // Or the version you are using (from libs.versions.toml [4])
 
 }
