@@ -19,10 +19,5 @@
             android:title="Logout"/>
     </group>
 
-    <group android:id="@+id/logout_grou">
-        <item
-            android:id="@+id/nav_logot"
-            android:icon="@drawable/ic_logout"
-            android:title="Logout"/>
-    </group>
+
 </menu>

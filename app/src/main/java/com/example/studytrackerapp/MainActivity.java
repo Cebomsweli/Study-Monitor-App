@@ -9,6 +9,7 @@ import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
@@ -51,21 +52,29 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 //Testing pull from the repository
+import com.bumptech.glide.Glide;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
 import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity  implements FragmentCallback{
     private static final int NOTIFICATION_PERMISSION_REQUEST_CODE =1001 ;
     private DrawerLayout drawerLayout;
     private ActionBarDrawerToggle drawerToggle;
     private static final String CHANNEL_ID = "my_channel_id";
     private static final int NOTIFICATION_ID = 1;
     private static final int REQUEST_CODE_NOTIFICATION_PERMISSION = 1001;
+    private FirebaseFirestore db;
+    private TextView navUserEmail, navUserName;
+    private ImageView navUserPhoto;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -75,7 +84,11 @@ public class MainActivity extends AppCompatActivity {
         AppCompatDelegate.setDefaultNightMode(mode);
         //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
-
+        // Load HomeFragment by default
+        if (savedInstanceState == null) {
+            navigateToFragment(new HomeFragment());
+        }
+        updateNavHeader();
         //Setting up welcome notification
         createNotificationChannel(); // Create notification channel
 
@@ -153,6 +166,7 @@ public class MainActivity extends AppCompatActivity {
                         .replace(R.id.content_frame, new SettingsFragment())
                         .commit();
             } else if (id == R.id.nav_logout) {
+
                 showLogoutConfirmation();
             }
 
@@ -173,12 +187,28 @@ public class MainActivity extends AppCompatActivity {
         View headerView = navigationView.getHeaderView(0);
         TextView userEmail = headerView.findViewById(R.id.user_email);
         TextView userName = headerView.findViewById(R.id.user_name);
+        ImageView userPhoto = headerView.findViewById(R.id.user_photo);
 
-        // Replace with your actual user data
-        userEmail.setText("group@gmail.com");
-        userName.setText("Group 11");
+        // Get current Firebase user
+        FirebaseUser currentUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        if (currentUser != null) {
+            // Set email from Firebase Auth
+            userEmail.setText(currentUser.getEmail());
+
+            // Get name from SharedPreferences
+            SharedPreferences prefs = getSharedPreferences("UserProfilePrefs", MODE_PRIVATE);
+            String name = prefs.getString("name", null);
+
+
+
+            // Load profile photo if available
+            // (You can add your Glide implementation here)
+        } else {
+            userEmail.setText("Not logged in");
+            userName.setText("Guest User");
+        }
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (drawerToggle.onOptionsItemSelected(item)) {
@@ -196,8 +226,8 @@ public class MainActivity extends AppCompatActivity {
                     // Perform logout operations
                     Toast.makeText(this, "Logged out successfully", Toast.LENGTH_SHORT).show();
 
-                    // Redirect to login activity (uncomment when ready)
-                    // startActivity(new Intent(this, LoginActivity.class));
+                    // Redirect to login activity
+                     startActivity(new Intent(this, LoginActivity.class));
                     finish();
                 })
                 .setNegativeButton("Cancel", null)
@@ -233,8 +263,8 @@ public class MainActivity extends AppCompatActivity {
     private void showNotification() {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(this, CHANNEL_ID)
                 .setSmallIcon(R.drawable.ic_launcher_foreground)
-                .setContentTitle("My Notification Title")
-                .setContentText("This is the content of my notification.")
+                .setContentTitle("Study Tracker App")
+                .setContentText("Welcome to the Study Tracker App!😊.")
                 .setPriority(NotificationCompat.PRIORITY_DEFAULT);
 
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
@@ -271,7 +301,7 @@ public class MainActivity extends AppCompatActivity {
             int itemId = item.getItemId();
 
             if (itemId == R.id.nav_home) {
-                //fragment = new HomeFragment();
+                fragment = new HomeFragment();
             } else if (itemId == R.id.nav_session) {
                 //fragment = new HistoryFragment();
             } else if (itemId == R.id.nav_history) {
@@ -290,4 +320,8 @@ public class MainActivity extends AppCompatActivity {
                 return false;
             };
 
+    @Override
+    public void showToast(String message) {
+        Toast.makeText(this, message, Toast.LENGTH_SHORT).show();
+    }
 }

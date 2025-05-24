@@ -37,4 +37,13 @@
 
     <!-- Surface Colors (Dark Theme Optimization) -->
     <color name="colorSurface">#1E1E1E</color> <!-- Dark gray (elevated surfaces in dark mode) -->
+    <!-- Status colors -->
+    <color name="colorOnline">#FF4CAF50</color>  <!-- Material Green 500 -->
+    <color name="colorOffline">#FFF44336</color> <!-- Material Red 500 -->
+    <color name="colorAway">#FFFFC107</color>   <!-- Material Amber 500 -->
+    <color name="colorBusy">#FF9C27B0</color>   <!-- Material Purple 500 -->
+
+    <!-- Optional: Add these for better visual hierarchy -->
+    <color name="colorOnlineLight">#FF81C784</color>  <!-- Light Green 300 -->
+    <color name="colorOnlineDark">#FF388E3C</color>   <!-- Dark Green 700 -->
 </resources>

@@ -33,6 +33,10 @@
         <item name="cornerFamily">rounded</item>
         <item name="cornerSize">50%</item>
     </style>
+    <style name="ShapeAppearanceOverlay.Circle" parent="">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
     <!-- Other styles remain the same -->
     <style name="Theme.StudyTracker.AppBarOverlay" parent="ThemeOverlay.MaterialComponents.Dark.ActionBar"/>
     <style name="Theme.StudyTracker.PopupOverlay" parent="ThemeOverlay.MaterialComponents.Light"/>

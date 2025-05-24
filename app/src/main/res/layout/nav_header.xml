@@ -2,34 +2,78 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="160dp"
-    android:background="@color/colorPrimaryDarkest"
+    android:layout_height="200dp"
+    android:background="@drawable/bg_gradient_dark"
     android:gravity="bottom"
     android:orientation="vertical"
-    android:padding="16dp"
+    android:padding="24dp"
+    android:paddingBottom="32dp"
     android:theme="@style/ThemeOverlay.Material3.Dark">
-<!--Editing as group 11-->
-    <ImageView
-        android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:src="@drawable/ic_user"
-        app:tint="@android:color/white"/>
 
-    <TextView
-        android:id="@+id/user_email"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:text="group10@gmail.com"
-        android:textColor="@android:color/white"
-        android:textSize="14sp"/>
+        android:orientation="horizontal"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <ImageView
+            android:id="@+id/user_photo"
+            android:layout_width="72dp"
+            android:layout_height="72dp"
+            android:src="@drawable/ic_user"
+            app:tint="@color/background_light"
+            android:contentDescription=""
+            android:elevation="4dp"
+            app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Circle"/>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginStart="16dp">
+
+            <TextView
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@android:color/white"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:letterSpacing="0.02"/>
+
+            <TextView
+                android:id="@+id/user_email"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="4dp"
+                android:text="group11@gmail.com"
+                android:textColor="@color/black"
+                android:textSize="18sp"
+
+                android:fontFamily="sans-serif"
+                android:drawableStart="@drawable/ic_verified"
+                android:drawablePadding="4dp"
+                android:drawableTint="@color/colorAccent"/>
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#33FFFFFF"
+        android:layout_marginBottom="16dp"/>
 
     <TextView
-        android:id="@+id/user_name"
+        android:id="@+id/user_status"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Group 10"
-        android:textColor="@android:color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"/>
+        android:text="Status"
+        android:textColor="#99FFFFFF"
+        android:textSize="12sp"
+        android:fontFamily="sans-serif"
+        android:drawableStart="@drawable/ic_circle_status"
+        android:drawablePadding="6dp"
+        android:drawableTint="@color/colorOnline"/>
 </LinearLayout>

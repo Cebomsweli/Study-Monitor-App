@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "1048479387289",
+    "firebase_url": "https://attandancedata-default-rtdb.firebaseio.com",
+    "project_id": "attandancedata",
+    "storage_bucket": "attandancedata.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048479387289:android:da6ba6609973baf6e9f208",
+        "android_client_info": {
+          "package_name": "com.example.demo10"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI1Y3fA2X1KMZllonwgzjWwF0yPNEcjR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048479387289:android:aae4cdc99e3e62c0e9f208",
+        "android_client_info": {
+          "package_name": "com.example.espensetrackerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI1Y3fA2X1KMZllonwgzjWwF0yPNEcjR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1048479387289:android:831a50b63c9038c6e9f208",
+        "android_client_info": {
+          "package_name": "com.example.studytrackerapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAI1Y3fA2X1KMZllonwgzjWwF0yPNEcjR0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
