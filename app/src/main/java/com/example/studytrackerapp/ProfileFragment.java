@@ -120,11 +120,8 @@ public class ProfileFragment extends Fragment {
         String permission;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             permission = Manifest.permission.READ_MEDIA_IMAGES;
-        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            permission = Manifest.permission.READ_EXTERNAL_STORAGE;
         } else {
-            openImagePicker();
-            return;
+            permission = Manifest.permission.READ_EXTERNAL_STORAGE;
         }
 
         if (ContextCompat.checkSelfPermission(requireContext(), permission) == PackageManager.PERMISSION_GRANTED) {
@@ -143,14 +140,12 @@ public class ProfileFragment extends Fragment {
     private void dispatchTakePictureIntent() {
         try {
             File photoFile = createImageFile();
-            if (photoFile != null) {
-                cameraImageUri = FileProvider.getUriForFile(
-                        requireContext(),
-                        requireContext().getPackageName() + ".fileprovider",
-                        photoFile
-                );
-                cameraLauncher.launch(cameraImageUri);
-            }
+            cameraImageUri = FileProvider.getUriForFile(
+                    requireContext(),
+                    requireContext().getPackageName() + ".fileprovider",
+                    photoFile
+            );
+            cameraLauncher.launch(cameraImageUri);
         } catch (IOException e) {
             Toast.makeText(getContext(), "Error creating image file", Toast.LENGTH_SHORT).show();
         }

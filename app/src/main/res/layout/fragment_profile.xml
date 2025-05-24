@@ -20,14 +20,16 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp">
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/iv_profile"
                 android:layout_width="120dp"
                 android:layout_height="120dp"
                 android:scaleType="centerCrop"
-                android:contentDescription="Profile image"
-                android:background="@drawable/circle_background"
-                app:srcCompat="@drawable/ic_user"/>
+                android:layout_gravity="center"
+                android:src="@drawable/ic_person_placeholder"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.App.Circle"
+                app:strokeColor="@color/colorPrimary"
+                app:strokeWidth="2dp"/>
 
             <ImageView
                 android:id="@+id/btn_edit_photo"

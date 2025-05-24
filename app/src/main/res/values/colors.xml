@@ -1,23 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="black">#212121</color> <!-- Dark Gray for text or icons -->
-    <color name="white">#FFFFFF</color> <!-- White for backgrounds and text -->
-    <color name="colorPrimary">#4CAF50</color> <!-- Green for primary actions (indicating progress or success) -->
-    <color name="colorPrimaryDark">#388E3C</color> <!-- Dark Green for status bars -->
-    <color name="colorAccent">#FF9800</color> <!-- Orange for accents (button, highlights) -->
-    <color name="primaryText">#212121</color> <!-- Dark Gray for main text -->
-    <color name="secondaryText">#757575</color> <!-- Light Gray for secondary text -->
-    <color name="primary">#4CAF50</color> <!-- Green for the main theme color -->
-    <color name="primary_dark">#388E3C</color> <!-- Darker Green for navigation or status bar -->
-    <color name="background_light">#F5F5F5</color> <!-- Light Gray for general background -->
+    <!-- Base Colors (Improved Contrast & Vibrancy) -->
+    <color name="black">#1A1A1A</color> <!-- Richer near-black for better readability -->
+    <color name="white">#FFFFFF</color> <!-- Pure white kept for clarity -->
 
-    <!-- Base colors -->
+    <!-- Primary & Accent Colors (More Vibrant & Modern) -->
+    <color name="colorPrimary">#2E7D32</color> <!-- Deeper, more professional green -->
+    <color name="colorPrimaryDark">#1B5E20</color> <!-- Darker green for better status bar contrast -->
+    <color name="colorAccent">#FF6D00</color> <!-- Brighter, more energetic orange (Material 600) -->
 
-    <!-- Light theme variants -->
-    <color name="colorPrimaryLight">#80E27E</color> <!-- Lighter Green for emphasis or hover -->
-    <color name="colorAccentLight">#FFB74D</color> <!-- Lighter Orange for accents in light theme -->
+    <!-- Text Colors (Improved Readability) -->
+    <color name="primaryText">#1A1A1A</color> <!-- Darker for better contrast on light BG -->
+    <color name="secondaryText">#616161</color> <!-- Softer gray (Material 700) -->
 
-    <!-- Dark theme variants -->
-    <color name="colorPrimaryDarkest">#1B5E20</color> <!-- Very Dark Green for dark theme -->
-    <color name="colorAccentDark">#FF5722</color> <!-- Darker Orange for accent in dark theme -->
+    <!-- Theme Consistency (Synced with colorPrimary) -->
+    <color name="primary">#2E7D32</color> <!-- Matching colorPrimary -->
+    <color name="primary_dark">#1B5E20</color> <!-- Matching colorPrimaryDark -->
+
+    <!-- Backgrounds (More Balanced) -->
+    <color name="background_light">#FAFAFA</color> <!-- Softer light gray (Material 50) -->
+    <color name="background_color">#121212</color> <!-- True dark theme background -->
+    <color name="colorBackground">#121212</color> <!-- Dark theme consistency -->
+
+    <!-- Light Theme Variants (Subtle & Harmonious) -->
+    <color name="colorPrimaryLight">#81C784</color> <!-- Softer, natural green (Material 300) -->
+    <color name="colorAccentLight">#FFAB40</color> <!-- Warm, lighter orange (Material 400) -->
+
+    <!-- Dark Theme Variants (Deep & Rich) -->
+    <color name="colorPrimaryDarkest">#0D3C12</color> <!-- Near-black green for dark mode depth -->
+    <color name="colorAccentDark">#FF3D00</color> <!-- Bold, fiery orange (Material 800) -->
+
+    <!-- Material-Recommended On- Colors -->
+    <color name="colorOnPrimary">#FFFFFF</color> <!-- White text on primary green (better contrast) -->
+    <color name="colorOnSurface">#E0E0E0</color> <!-- Light gray for dark theme text (Material 300) -->
+    <color name="colorOnBackground">#E0E0E0</color> <!-- Same as colorOnSurface for consistency -->
+
+    <!-- Surface Colors (Dark Theme Optimization) -->
+    <color name="colorSurface">#1E1E1E</color> <!-- Dark gray (elevated surfaces in dark mode) -->
 </resources>

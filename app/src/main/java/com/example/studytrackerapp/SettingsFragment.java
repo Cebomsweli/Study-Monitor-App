@@ -12,10 +12,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
 import android.widget.TimePicker;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.appcompat.widget.SwitchCompat;
 import androidx.fragment.app.Fragment;
 
@@ -43,6 +46,8 @@ public class SettingsFragment extends Fragment {
     private TextInputEditText dailyGoalInput;
     private MaterialButton saveSettingsButton;
 
+    private RadioGroup themeRadioGroup;
+
     private int selectedHour = 8;
     private int selectedMinute = 0;
     private Set<String> selectedDays = new HashSet<>();
@@ -56,6 +61,7 @@ public class SettingsFragment extends Fragment {
     private static final String KEY_REMINDER_DAYS = "reminder_days";
     private static final String KEY_REMINDER_MESSAGE = "reminder_message";
     private static final String KEY_DAILY_GOAL = "daily_goal";
+    private static final String KEY_THEME_MODE = "theme_mode";
 
     @Nullable
     @Override
@@ -72,6 +78,7 @@ public class SettingsFragment extends Fragment {
         reminderMessage = view.findViewById(R.id.reminderMessage);
         dailyGoalInput = view.findViewById(R.id.dailyGoalInput);
         saveSettingsButton = view.findViewById(R.id.saveSettingsButton);
+        themeRadioGroup = view.findViewById(R.id.themeRadioGroup);
 
         loadPreferences();
         setupListeners();
@@ -93,6 +100,19 @@ public class SettingsFragment extends Fragment {
         reminderMessage.setText(reminderText);
         dailyGoalInput.setText(String.valueOf(dailyGoal));
         updateDaysButtonText();
+
+        // Set theme radio group
+        int savedMode = sharedPreferences.getInt(KEY_THEME_MODE, AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        switch (savedMode) {
+            case AppCompatDelegate.MODE_NIGHT_NO:
+                themeRadioGroup.check(R.id.lightTheme);
+                break;
+            case AppCompatDelegate.MODE_NIGHT_YES:
+                themeRadioGroup.check(R.id.darkTheme);
+                break;
+            default:
+                themeRadioGroup.check(R.id.systemTheme);
+        }
     }
 
     private void setupListeners() {
@@ -158,6 +178,23 @@ public class SettingsFragment extends Fragment {
                     .setPositiveButton("OK", null)
                     .show();
         });
+
+        themeRadioGroup.setOnCheckedChangeListener((group, checkedId) -> {
+            int mode;
+
+            if (checkedId == R.id.lightTheme) {
+                mode = AppCompatDelegate.MODE_NIGHT_NO;
+            } else if (checkedId == R.id.darkTheme) {
+                mode = AppCompatDelegate.MODE_NIGHT_YES;
+            } else {
+                mode = AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM;
+            }
+
+            sharedPreferences.edit().putInt(KEY_THEME_MODE, mode).apply();
+            AppCompatDelegate.setDefaultNightMode(mode);
+            requireActivity().recreate();
+        });
+
     }
 
     private void scheduleReminder() {

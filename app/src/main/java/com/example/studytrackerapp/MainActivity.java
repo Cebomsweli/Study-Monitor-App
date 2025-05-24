@@ -5,6 +5,7 @@ package com.example.studytrackerapp;
 import android.Manifest;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
@@ -18,6 +19,7 @@ import android.os.Bundle;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.core.app.ActivityCompat;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
@@ -35,6 +37,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.PopupMenu;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -48,7 +51,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 //Testing pull from the repository
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.dialog.MaterialAlertDialogBuilder;
+import com.google.android.material.navigation.NavigationBarView;
 import com.google.android.material.navigation.NavigationView;
 
 import java.lang.reflect.Field;
@@ -64,6 +69,11 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        SharedPreferences prefs = getSharedPreferences("StudyTrackerPrefs", MODE_PRIVATE);
+        int mode = prefs.getInt("theme_mode", AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM);
+        AppCompatDelegate.setDefaultNightMode(mode);
+        //AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO);
         setContentView(R.layout.activity_main);
 
         //Setting up welcome notification
@@ -149,7 +159,11 @@ public class MainActivity extends AppCompatActivity {
             drawerLayout.closeDrawer(GravityCompat.START);
             return true;
         });
+        //Fr the activity tracking
+        BottomNavigationView bottomNav = findViewById(R.id.bottom_navigation);
 
+        // New way (since Material Components 1.5.0+)
+        bottomNav.setOnItemSelectedListener(navListener);
         // Update header with user info
         updateNavHeader();
     }
@@ -240,4 +254,40 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
+
+    //Method to change fragments
+    public void navigateToFragment(Fragment fragment){
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.content_frame, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+    //Navigating to fragments
+    private final NavigationBarView.OnItemSelectedListener navListener =
+            item -> {
+        try {
+            Fragment fragment = null;
+            int itemId = item.getItemId();
+
+            if (itemId == R.id.nav_home) {
+                //fragment = new HomeFragment();
+            } else if (itemId == R.id.nav_session) {
+                //fragment = new HistoryFragment();
+            } else if (itemId == R.id.nav_history) {
+                //fragment = new Histpry();
+            } else if (itemId == R.id.nav_analytics) {
+               fragment = new StudyAnalyticsFragment();
+            } else {
+                return false;
+            }
+            navigateToFragment(fragment);
+            return true;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+                return false;
+            };
+
 }
