@@ -16,7 +16,7 @@
     <!-- Theme Consistency (Synced with colorPrimary) -->
     <color name="primary">#2E7D32</color> <!-- Matching colorPrimary -->
     <color name="primary_dark">#1B5E20</color> <!-- Matching colorPrimaryDark -->
-
+    <color name="colorSecondary">#FF5733</color>
     <!-- Backgrounds (More Balanced) -->
     <color name="background_light">#FAFAFA</color> <!-- Softer light gray (Material 50) -->
     <color name="background_color">#121212</color> <!-- True dark theme background -->

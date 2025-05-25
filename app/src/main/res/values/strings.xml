@@ -1,5 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!-- App Basics -->
     <string name="app_name">Study Tracker App</string>
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <!-- Study Goals -->
+    <string-array name="study_goals">
+        <item>1 Hour</item>
+        <item>2 Hours</item>
+        <item>3 Hours</item>
+        <item>4 Hours</item>
+        <item>5 Hours</item>
+        <item>6 Hours</item>
+        <item>7 Hours</item>
+    </string-array>
+
+    <!-- Time Formats -->
+    <string name="time_format">%1$dh %2$02dm</string>
+    <string name="hours_per_day_format">%1$.1fh/day</string>
+    <string name="percent_format">%1$d%%</string>
+
+    <!-- Plurals -->
+    <plurals name="day_streak">
+        <item quantity="one">%d day streak</item>
+        <item quantity="other">%d days streak</item>
+    </plurals>
+
+    <!-- Analytics Screen -->
+    <string name="analytics_title">Study Analytics</string>
+    <string name="today_label">Today</string>
+    <string name="goal_progress_label">Goal Progress</string>
+    <string name="sessions_label">Sessions</string>
+    <string name="subject_distribution_label">Subject Distribution</string>
+    <string name="recent_sessions_label">Recent Sessions</string>
+    <string name="view_all_button">View All</string>
 </resources>
