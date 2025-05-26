@@ -8,11 +8,12 @@
     <color name="colorPrimary">#2E7D32</color> <!-- Deeper, more professional green -->
     <color name="colorPrimaryDark">#1B5E20</color> <!-- Darker green for better status bar contrast -->
     <color name="colorAccent">#FF6D00</color> <!-- Brighter, more energetic orange (Material 600) -->
-
+    <color name="red_500">#F44336</color>
     <!-- Text Colors (Improved Readability) -->
     <color name="primaryText">#1A1A1A</color> <!-- Darker for better contrast on light BG -->
     <color name="secondaryText">#616161</color> <!-- Softer gray (Material 700) -->
-
+    <color name="gray_700">#616161</color>
+    <color name="blue_500">#2196F3</color>
     <!-- Theme Consistency (Synced with colorPrimary) -->
     <color name="primary">#2E7D32</color> <!-- Matching colorPrimary -->
     <color name="primary_dark">#1B5E20</color> <!-- Matching colorPrimaryDark -->

@@ -23,12 +23,23 @@
             app:strokeColor="@color/colorPrimaryLight"
             app:strokeWidth="1dp">
 
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="24dp">
-
+                <TextView
+                    android:id="@+id/headerCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="16dp"
+                    android:text="Hours Focused Tracker"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="24sp"
+                    android:textStyle="bold"
+                    />
                 <!-- Timer Display -->
                 <TextView
                     android:id="@+id/timerTextView"
@@ -90,7 +101,29 @@
                         app:rippleColor="@color/colorAccentLight"
                         app:strokeColor="@color/colorAccent"
                         app:strokeWidth="1.5dp"/>
+
+
                 </LinearLayout>
+                <!-- Goal Dropdown -->
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/goalContainer"
+                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:boxStrokeColor="@color/colorPrimary"
+
+                    app:startIconDrawable="@drawable/ic_target"
+                    app:startIconTint="@color/colorPrimary">
+
+                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
+                        android:id="@+id/goalSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dp"
+                        android:hint="Study goal (hours)"
+                        android:inputType="none"
+                        android:textColor="@color/primaryText"
+                        android:textColorHint="@color/secondaryText"/>
+                </com.google.android.material.textfield.TextInputLayout>
             </LinearLayout>
         </com.google.android.material.card.MaterialCardView>
 
@@ -110,25 +143,25 @@
                 android:orientation="vertical"
                 android:padding="24dp">
 
-                <!-- Goal Dropdown -->
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/goalContainer"
-                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:boxStrokeColor="@color/colorPrimary"
-                    app:startIconDrawable="@drawable/ic_target"
-                    app:startIconTint="@color/colorPrimary">
+<!--                &lt;!&ndash; Goal Dropdown &ndash;&gt;-->
+<!--                <com.google.android.material.textfield.TextInputLayout-->
+<!--                    android:id="@+id/goalContainer"-->
+<!--                    style="@style/Widget.Material3.TextInputLayout.OutlinedBox"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    app:boxStrokeColor="@color/colorPrimary"-->
+<!--                    app:startIconDrawable="@drawable/ic_target"-->
+<!--                    app:startIconTint="@color/colorPrimary">-->
 
-                    <com.google.android.material.textfield.MaterialAutoCompleteTextView
-                        android:id="@+id/goalSpinner"
-                        android:layout_width="match_parent"
-                        android:layout_height="48dp"
-                        android:hint="Study goal (hours)"
-                        android:inputType="none"
-                        android:textColor="@color/primaryText"
-                        android:textColorHint="@color/secondaryText"/>
-                </com.google.android.material.textfield.TextInputLayout>
+<!--                    <com.google.android.material.textfield.MaterialAutoCompleteTextView-->
+<!--                        android:id="@+id/goalSpinner"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="48dp"-->
+<!--                        android:hint="Study goal (hours)"-->
+<!--                        android:inputType="none"-->
+<!--                        android:textColor="@color/primaryText"-->
+<!--                        android:textColorHint="@color/secondaryText"/>-->
+<!--                </com.google.android.material.textfield.TextInputLayout>-->
 
                 <!-- Subject Input -->
                 <com.google.android.material.textfield.TextInputLayout

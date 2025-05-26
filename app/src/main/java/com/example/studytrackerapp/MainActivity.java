@@ -305,7 +305,7 @@ public class MainActivity extends AppCompatActivity  implements FragmentCallback
             } else if (itemId == R.id.nav_session) {
                 fragment = new SessionFragment();
             } else if (itemId == R.id.nav_history) {
-                //fragment = new Histpry();
+                fragment = new FragmentHistory();
             } else if (itemId == R.id.nav_analytics) {
                fragment = new StudyAnalyticsFragment();
             } else {

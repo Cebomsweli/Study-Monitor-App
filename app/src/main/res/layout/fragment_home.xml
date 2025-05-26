@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/scrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_light"
     android:fillViewport="true">
 
     <LinearLayout
+        android:id="@+id/mainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -14,6 +16,7 @@
 
         <!-- Welcome Section -->
         <LinearLayout
+            android:id="@+id/welcomeContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -39,6 +42,7 @@
 
         <!-- Daily Quote Card -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/quoteCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="24dp"
@@ -47,12 +51,14 @@
             app:cardElevation="4dp">
 
             <LinearLayout
+                android:id="@+id/quoteContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_quote_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Daily Motivation"
@@ -83,6 +89,7 @@
 
         <!-- Stats Overview -->
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_overview_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Your Overview"
@@ -90,8 +97,10 @@
             android:textSize="20sp"
             android:textStyle="bold"
             android:layout_marginBottom="16dp"/>
+
         <!-- Productivity Insights -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/productivityCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
@@ -99,12 +108,14 @@
             app:cardBackgroundColor="@android:color/white">
 
             <LinearLayout
+                android:id="@+id/productivityContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
                 android:padding="16dp">
 
                 <com.google.android.material.textview.MaterialTextView
+                    android:id="@+id/tv_productivity_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Productivity Insights"
@@ -114,6 +125,7 @@
                     android:layout_marginBottom="12dp"/>
 
                 <LinearLayout
+                    android:id="@+id/insightsContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal"
@@ -121,6 +133,7 @@
 
                     <!-- Most Productive Time -->
                     <LinearLayout
+                        android:id="@+id/peakTimeContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -128,12 +141,14 @@
                         android:padding="8dp">
 
                         <ImageView
+                            android:id="@+id/iv_peak_time"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_peak_time"
                             android:layout_gravity="center_horizontal"/>
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_peak_time_label"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Peak Time"
@@ -156,6 +171,7 @@
 
                     <!-- Focus Score -->
                     <LinearLayout
+                        android:id="@+id/focusScoreContainer"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -163,12 +179,14 @@
                         android:padding="8dp">
 
                         <ImageView
+                            android:id="@+id/iv_focus_score"
                             android:layout_width="24dp"
                             android:layout_height="24dp"
                             android:src="@drawable/ic_focus"
                             android:layout_gravity="center_horizontal"/>
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/tv_focus_score_label"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:text="Focus Score"
@@ -193,6 +211,7 @@
         </com.google.android.material.card.MaterialCardView>
 
         <LinearLayout
+            android:id="@+id/statsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -201,6 +220,7 @@
 
             <!-- Today's Study Time -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/todayStudyCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -209,6 +229,7 @@
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
+                    android:id="@+id/todayStudyContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -216,6 +237,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/iv_today_study"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/ic_clock"
@@ -232,6 +254,7 @@
                         android:layout_marginTop="8dp"/>
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_today_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Today"
@@ -242,6 +265,7 @@
 
             <!-- Weekly Average -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/weeklyAvgCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -249,6 +273,7 @@
                 app:cardCornerRadius="8dp">
 
                 <LinearLayout
+                    android:id="@+id/weeklyAvgContainer"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical"
@@ -256,6 +281,7 @@
                     android:gravity="center">
 
                     <ImageView
+                        android:id="@+id/iv_weekly_avg"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
                         android:src="@drawable/ic_trending_up"
@@ -272,6 +298,7 @@
                         android:layout_marginTop="8dp"/>
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/tv_weekly_label"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Weekly Avg"
@@ -283,6 +310,7 @@
 
         <!-- Quick Actions -->
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/tv_quick_actions_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Quick Actions"
@@ -292,6 +320,7 @@
             android:layout_marginBottom="16dp"/>
 
         <LinearLayout
+            android:id="@+id/quickActionsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

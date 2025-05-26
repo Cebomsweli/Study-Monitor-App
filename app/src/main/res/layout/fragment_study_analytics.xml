@@ -3,12 +3,14 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/analyticsScrollView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/background_light"
     android:fillViewport="true">
 
     <LinearLayout
+        android:id="@+id/mainContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -16,6 +18,7 @@
 
         <!-- Header -->
         <com.google.android.material.textview.MaterialTextView
+            android:id="@+id/headerTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Study Analytics"
@@ -26,6 +29,7 @@
 
         <!-- Stats Cards Row -->
         <LinearLayout
+            android:id="@+id/statsRow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
@@ -34,6 +38,7 @@
 
             <!-- Today's Study Time -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/todayCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -48,12 +53,14 @@
                     android:padding="12dp">
 
                     <ImageView
+                        android:id="@+id/todayIcon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_clock"
                         app:tint="@color/colorPrimaryDark" />
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/todayTimeText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="2h 45m"
@@ -63,6 +70,7 @@
                         android:layout_marginTop="8dp"/>
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/todayLabelText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Today"
@@ -73,6 +81,7 @@
 
             <!-- Weekly Average -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/weeklyAvgCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -87,12 +96,14 @@
                     android:padding="12dp">
 
                     <ImageView
+                        android:id="@+id/weeklyAvgIcon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_trending_up"
                         app:tint="@color/colorAccentDark" />
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/weeklyAvgText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="3.2h/day"
@@ -102,6 +113,7 @@
                         android:layout_marginTop="8dp"/>
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/weeklyAvgLabelText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Weekly Avg"
@@ -112,6 +124,7 @@
 
             <!-- Streak -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/streakCard"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
@@ -125,12 +138,14 @@
                     android:padding="12dp">
 
                     <ImageView
+                        android:id="@+id/streakIcon"
                         android:layout_width="24dp"
                         android:layout_height="24dp"
                         android:src="@drawable/ic_flame"
                         app:tint="@color/colorAccentDark" />
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/streakText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="7 days"
@@ -140,6 +155,7 @@
                         android:layout_marginTop="8dp"/>
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/streakLabelText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Current Streak"
@@ -151,6 +167,7 @@
 
         <!-- Charts Row -->
         <LinearLayout
+            android:id="@+id/chartsContainer"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -158,6 +175,7 @@
 
             <!-- Subject Distribution Pie Chart -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/subjectDistributionCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
@@ -171,6 +189,7 @@
                     android:padding="16dp">
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/subjectDistributionTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Subject Distribution"
@@ -186,6 +205,7 @@
                         android:layout_marginTop="8dp"/>
 
                     <LinearLayout
+                        android:id="@+id/legendContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -195,6 +215,7 @@
 
                         <!-- Legend items would be added programmatically -->
                         <TextView
+                            android:id="@+id/mathLegend"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -205,6 +226,7 @@
                             android:gravity="center"/>
 
                         <TextView
+                            android:id="@+id/scienceLegend"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -215,6 +237,7 @@
                             android:gravity="center"/>
 
                         <TextView
+                            android:id="@+id/historyLegend"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -225,6 +248,7 @@
                             android:gravity="center"/>
 
                         <TextView
+                            android:id="@+id/languageLegend"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
@@ -239,6 +263,7 @@
 
             <!-- Weekly Study Time Bar Chart -->
             <com.google.android.material.card.MaterialCardView
+                android:id="@+id/weeklyStudyCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:cardCornerRadius="12dp"
@@ -251,6 +276,7 @@
                     android:padding="16dp">
 
                     <com.google.android.material.textview.MaterialTextView
+                        android:id="@+id/weeklyStudyTitle"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="Weekly Study Time"
@@ -266,6 +292,7 @@
                         android:layout_marginTop="8dp"/>
 
                     <LinearLayout
+                        android:id="@+id/goalContainer"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:orientation="horizontal"
@@ -273,6 +300,7 @@
                         android:gravity="center">
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/goalLabel"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="Goal: "
@@ -280,6 +308,7 @@
                             android:textSize="12sp"/>
 
                         <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/goalValue"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:text="3.5h/day"
@@ -293,223 +322,20 @@
 
         <!-- Productivity Insights -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/productivityCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
             android:layout_marginBottom="16dp"
-            app:cardBackgroundColor="@android:color/white">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Productivity Insights"
-                    android:textColor="@color/primaryText"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp"/>
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-
-                    <!-- Most Productive Time -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="8dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_peak_time"
-                            android:layout_gravity="center_horizontal"/>
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Peak Time"
-                            android:textColor="@color/primaryText"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_marginTop="8dp"/>
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="14:00 - 16:00"
-                            android:textColor="@color/colorAccentDark"
-                            android:textSize="16sp"
-                            android:gravity="center"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-
-                    <!-- Focus Score -->
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="8dp">
-
-                        <ImageView
-                            android:layout_width="24dp"
-                            android:layout_height="24dp"
-                            android:src="@drawable/ic_focus"
-                            android:layout_gravity="center_horizontal"/>
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Focus Score"
-                            android:textColor="@color/primaryText"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:gravity="center"
-                            android:layout_marginTop="8dp"/>
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="82%"
-                            android:textColor="@color/colorAccentDark"
-                            android:textSize="16sp"
-                            android:gravity="center"
-                            android:layout_marginTop="4dp"/>
-                    </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            app:cardBackgroundColor="@android:color/white"/>
 
         <!-- Recent Sessions -->
         <com.google.android.material.card.MaterialCardView
+            android:id="@+id/recentSessionsCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:cardCornerRadius="12dp"
             android:layout_marginBottom="30dp"
-            app:cardBackgroundColor="@android:color/white">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:padding="16dp">
-
-                <com.google.android.material.textview.MaterialTextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="Recent Sessions"
-                    android:textColor="@color/primaryText"
-                    android:textSize="16sp"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="12dp"/>
-
-                <!-- Session Item 1 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="8dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_book"
-                        app:tint="@color/colorPrimary" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="12dp">
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Mathematics"
-                            android:textColor="@color/primaryText"
-                            android:textSize="14sp"/>
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Today, 14:30 - 16:45"
-                            android:textColor="@color/secondaryText"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="2h 15m"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"/>
-                </LinearLayout>
-
-                <!-- Session Item 2 -->
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="8dp">
-
-                    <ImageView
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:src="@drawable/ic_science"
-                        app:tint="@color/colorAccent" />
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:layout_marginStart="12dp">
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Physics"
-                            android:textColor="@color/primaryText"
-                            android:textSize="14sp"/>
-
-                        <com.google.android.material.textview.MaterialTextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:text="Yesterday, 09:15 - 10:30"
-                            android:textColor="@color/secondaryText"
-                            android:textSize="12sp"/>
-                    </LinearLayout>
-
-                    <com.google.android.material.textview.MaterialTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="1h 15m"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="14sp"/>
-                </LinearLayout>
-
-                <!-- View All Button -->
-                <com.google.android.material.button.MaterialButton
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="View All Sessions"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="8dp"
-                    style="@style/Widget.MaterialComponents.Button.TextButton"
-                    android:textColor="@color/colorPrimary"/>
-            </LinearLayout>
-        </com.google.android.material.card.MaterialCardView>
+            app:cardBackgroundColor="@android:color/white"/>
     </LinearLayout>
 </androidx.core.widget.NestedScrollView>
