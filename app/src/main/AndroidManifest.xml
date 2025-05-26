@@ -16,6 +16,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"
         android:maxSdkVersion="28" /> <!-- Only needed for API <= 28 -->
 
+
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
+
+
+
     <application
 
         android:allowBackup="true"
@@ -54,6 +59,5 @@
         <receiver android:name=".ReminderReceiver" android:exported="true" />
 
     </application>
-
 
 </manifest>
