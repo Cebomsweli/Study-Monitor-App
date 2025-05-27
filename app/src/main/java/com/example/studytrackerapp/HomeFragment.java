@@ -1,6 +1,7 @@
 package com.example.studytrackerapp;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,11 +13,16 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.Query;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
+import java.util.Locale;
 import java.util.Random;
 
 public class HomeFragment extends Fragment {
@@ -105,6 +111,8 @@ public class HomeFragment extends Fragment {
                 .addOnSuccessListener(querySnapshot -> {
                     float[] dailyTotals = new float[7];
                     int[] hourlyStudyCounts = new int[24];
+                    int[] hourlyMinutes = new int[24];
+
                     float totalFocusTime = 0f;
                     int sessionCount = 0;
 
@@ -124,13 +132,37 @@ public class HomeFragment extends Fragment {
                         int index = cal.get(Calendar.DAY_OF_WEEK) - 1;
                         dailyTotals[index] += focusTime;
 
-                        // Peak hours
+                        // Peak hours with short session handling
                         Timestamp startTime = doc.getTimestamp("startTime");
-                        if (startTime != null) {
-                            Calendar startCal = Calendar.getInstance();
-                            startCal.setTime(startTime.toDate());
-                            int hour = startCal.get(Calendar.HOUR_OF_DAY);
-                            hourlyStudyCounts[hour]++;
+                        Timestamp endTime = doc.getTimestamp("endTime");
+
+                        if (startTime != null && endTime != null) {
+                            Calendar start = Calendar.getInstance();
+                            start.setTime(startTime.toDate());
+
+                            Calendar end = Calendar.getInstance();
+                            end.setTime(endTime.toDate());
+
+                            while (!start.after(end)) {
+                                int hour = start.get(Calendar.HOUR_OF_DAY);
+
+                                // Calculate minutes in this hour
+                                Calendar nextHour = (Calendar) start.clone();
+                                nextHour.set(Calendar.MINUTE, 0);
+                                nextHour.set(Calendar.SECOND, 0);
+                                nextHour.set(Calendar.MILLISECOND, 0);
+                                nextHour.add(Calendar.HOUR_OF_DAY, 1);
+
+                                long millisInThisHour = Math.min(end.getTimeInMillis(), nextHour.getTimeInMillis()) - start.getTimeInMillis();
+                                int minutesInThisHour = (int) (millisInThisHour / (60 * 1000));
+
+                                if (hour >= 0 && hour < 24) {
+                                    hourlyStudyCounts[hour]++;
+                                    hourlyMinutes[hour] += minutesInThisHour;
+                                }
+
+                                start = nextHour;
+                            }
                         }
 
                         totalFocusTime += focusTime;
@@ -138,13 +170,16 @@ public class HomeFragment extends Fragment {
                     }
 
                     updateSummaryStats(dailyTotals);
-                    updatePeakStudyTime(hourlyStudyCounts);
+                    updatePeakStudyTime(hourlyStudyCounts, hourlyMinutes); // Use new overload
                     updateFocusScore(totalFocusTime, sessionCount);
                 })
                 .addOnFailureListener(e -> {
                     // Handle failure if needed
+                    e.printStackTrace();
                 });
     }
+
+
 
     private void updateSummaryStats(float[] dailyTotals) {
         Calendar calendar = Calendar.getInstance();
@@ -168,9 +203,10 @@ public class HomeFragment extends Fragment {
         //daysStudied.setText(String.format(" %d days", daysStudiedCount));
     }
 
-    private void updatePeakStudyTime(int[] hourlyStudyCounts) {
-        int peakHour = 0;
-        int maxSessions = 0;
+    private void updatePeakStudyTime(int[] hourlyStudyCounts, int[] hourlyMinutes) {
+        int peakHour = -1;
+        int maxSessions = -1;
+
         for (int i = 0; i < hourlyStudyCounts.length; i++) {
             if (hourlyStudyCounts[i] > maxSessions) {
                 maxSessions = hourlyStudyCounts[i];
@@ -178,9 +214,16 @@ public class HomeFragment extends Fragment {
             }
         }
 
-        String peakTime = String.format("%02d:00 - %02d:00", peakHour, (peakHour + 2) % 24);
-        tvPeakTime.setText(peakTime);
+        if (maxSessions <= 0 || hourlyMinutes[peakHour] < 10) {
+            tvPeakTime.setText("No peak session 🙊..");
+        } else {
+            String peakTime = String.format("%02d:00 - %02d:00",
+                    peakHour,
+                    (peakHour + 1) % 24);
+            tvPeakTime.setText(peakTime);
+        }
     }
+
 
     private void updateFocusScore(float totalFocusTime, int sessionCount) {
         if (sessionCount == 0) {

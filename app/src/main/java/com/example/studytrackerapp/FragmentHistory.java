@@ -15,8 +15,12 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.button.MaterialButton;
 import com.google.firebase.Timestamp;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.FirebaseFirestoreException;
 import com.google.firebase.firestore.Query;
 
 import java.text.SimpleDateFormat;
@@ -53,27 +57,49 @@ public class FragmentHistory extends Fragment {
     }
 
     private void loadHistoryData() {
+        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+        if (user == null) {
+            Toast.makeText(getContext(), "Not authenticated", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
         showProgress(true);
 
-        db.collection("Students")
-                .orderBy("dateSaved", Query.Direction.DESCENDING) // Show newest first
+        FirebaseFirestore.getInstance()
+                .collection("Students")
+                .whereEqualTo("userId", user.getUid())
+//                .orderBy("dateSaved", Query.Direction.DESCENDING)
                 .get()
                 .addOnCompleteListener(task -> {
                     showProgress(false);
 
                     if (task.isSuccessful()) {
                         studySessions.clear();
-                        for (DocumentSnapshot document : task.getResult()) {
-                            StudySession session = document.toObject(StudySession.class);
+                        for (DocumentSnapshot doc : task.getResult()) {
+                            StudySession session = doc.toObject(StudySession.class);
                             if (session != null) {
-                                session.setId(document.getId());
+                                session.setId(doc.getId());
                                 studySessions.add(session);
                             }
                         }
                         historyAdapter.notifyDataSetChanged();
+
+                        if (studySessions.isEmpty()) {
+                            Toast.makeText(getContext(), "No sessions found", Toast.LENGTH_SHORT).show();
+                        }
                     } else {
-                        Toast.makeText(getContext(), "Failed to load history: " + task.getException(),
-                                Toast.LENGTH_SHORT).show();
+                        Exception e = task.getException();
+                        if (e instanceof FirebaseFirestoreException &&
+                                ((FirebaseFirestoreException)e).getCode() == FirebaseFirestoreException.Code.FAILED_PRECONDITION) {
+                            // Show more helpful message about index
+                            Toast.makeText(getContext(),
+                                    "Please create the Firestore index for this query",
+                                    Toast.LENGTH_LONG).show();
+                        } else {
+                            Toast.makeText(getContext(),
+                                    "Error: " + (e != null ? e.getMessage() : "Unknown error"),
+                                    Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
     }
